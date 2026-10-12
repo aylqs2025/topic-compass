@@ -56,17 +56,21 @@ elif input_method == "导入 Excel":
         try:
             df = pd.read_excel(uploaded, sheet_name="调查表", header=None)
 
-            def get_answer(row_idx):
-                return str(df.iloc[row_idx, 3])
+            def get_answer(question_no):
+                return str(df.iloc[question_no + 2, 3])
 
             name = get_answer(1)
             sid = get_answer(2)
+
             time_raw = get_answer(9)
             time = "少" if ("3—6" in time_raw or "3 小时以内" in time_raw) else ("多" if "10 小时以上" in time_raw else "中")
+
             py_raw = get_answer(20)
             tech = "低" if "不会" in py_raw else ("高" if "熟练" in py_raw else "中")
+
             pref_raw = get_answer(18)
             pref = "系统" if "系统原型" in pref_raw else "分析"
+
             concern_raw = get_answer(30)
             concern = "时间" if "时间" in concern_raw else ("编程" if "编程" in concern_raw else ("统计" if "统计" in concern_raw else "聚焦"))
 
